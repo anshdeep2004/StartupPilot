@@ -1,2 +1,2 @@
-# StartupPiolet
+# Startup-Pilot
 GUIDING STARTUP TEAMS FROM CHAOS TO CLARITY

@@ -10,9 +10,7 @@ function App() {
       
         <LeftSideBar />
       
-      <div className="bg-[#FFF8FE] overflow-y-auto w-[60%] h-full flex justify-center">
         <Dashboard />
-      </div>
 
         <RightSideBar />
     </div>

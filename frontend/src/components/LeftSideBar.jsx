@@ -1,42 +1,41 @@
 import React from "react";
 import logo from "/images/logo.png";
 import { LayoutDashboard, Users, Trello, Settings } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const LeftSideBar = () => {
     return (
-        <div className="fixed left-0 top-0 bg-[#6358D5] h-screen w-[20%] p-8">
+        <div className="fixed left-0 top-0 bg-[#6358D5] h-screen w-[20%] p-3 py-8 text-white">
             <div className="flex flex-col gap-16">
-                <div className="flex gap-5">
+                {/* Logo Section */}
+                <div className="flex gap-5 items-center">
                     <img src={logo} alt="logo" className="w-9 h-9" />
-                    <div className="text-3xl font-bold justify-center items-center">
+                    <div className="text-2xl font-bold">
                         StartupPilot
                     </div>
                 </div>
+
+                {/* Navigation */}
                 <div className="flex flex-col px-3">
-                    <div className="flex gap-4 p-3 rounded-md hover:bg-[#8578F5]">
+                    <Link to="/" className="flex gap-4 p-3 rounded-md hover:bg-[#8578F5] hover:text-white text-white">
                         <LayoutDashboard size={20} />
-                        <div className="flex justify-start items-start text-base">
-                            Dashboard
-                        </div>
-                    </div>
-                    <div className="flex gap-4 p-3 rounded-md hover:bg-[#8578F5]">
+                        <span>Dashboard</span>
+                    </Link>
+
+                    <Link to="/team" className="flex gap-4 p-3 rounded-md hover:bg-[#8578F5] hover:text-white text-white">
                         <Users size={20} />
-                        <div className="flex justify-start items-start text-base">
-                            Teams
-                        </div>
-                    </div>
-                    <div className="flex gap-4 p-3 rounded-md hover:bg-[#8578F5]">
+                        <span>Teams</span>
+                    </Link>
+
+                    <Link to="/board" className="flex gap-4 p-3 rounded-md hover:bg-[#8578F5] hover:text-white text-white">
                         <Trello size={20} />
-                        <div className="flex justify-start items-start text-base">
-                            Board
-                        </div>
-                    </div>
-                    <div className="flex gap-4 p-3 rounded-md hover:bg-[#8578F5]">
+                        <span>Board</span>
+                    </Link>
+
+                    <Link to="/settings" className="flex gap-4 p-3 rounded-md hover:bg-[#8578F5] hover:text-white text-white">
                         <Settings size={20} />
-                        <div className="flex justify-start items-start text-base">
-                            Settings
-                        </div>
-                    </div>
+                        <span>Settings</span>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Team from './pages/Team';
 import Board from './pages/Board';
 import Settings from './pages/Settings';
+import Project from './pages/Project';
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path='/team' element={<Team />} />
             <Route path='/board' element={<Board />} />
             <Route path='/settings' element={<Settings />} />
+            <Route path='/project' element={<Project />} />
           </Routes>
         </div>
 

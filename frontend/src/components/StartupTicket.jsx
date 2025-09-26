@@ -1,5 +1,6 @@
 import React from "react";
 import { MoreHorizontal } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 const StartupTicket = ({startupName, startUpDesc}) => {
     return (
@@ -15,14 +16,14 @@ const StartupTicket = ({startupName, startUpDesc}) => {
 
             {/* Buttons */}
             <div className="flex gap-4">
+                <NavLink to="/project" className="bg-[#FBC02D] text-xs text-black hover:text-black font-medium px-4 py-2 rounded-full shadow-sm">
+                    Projects
+                </NavLink>
                 <button className="bg-[#FBC02D] text-xs font-medium px-4 py-2 rounded-full shadow-sm">
-                Projects
+                    Tasks
                 </button>
                 <button className="bg-[#FBC02D] text-xs font-medium px-4 py-2 rounded-full shadow-sm">
-                Tasks
-                </button>
-                <button className="bg-[#FBC02D] text-xs font-medium px-4 py-2 rounded-full shadow-sm">
-                Overview
+                    Overview
                 </button>
             </div>
         </div>

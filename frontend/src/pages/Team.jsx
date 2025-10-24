@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ProfileIcon from "../components/ProfileIcon";
+import Profile from "./Profile";
+import { NavLink } from "react-router-dom";
 
 const Team = () => {
   const [teamMembers, setTeamMembers] = useState([
@@ -24,21 +26,27 @@ const Team = () => {
   };
 
   return (
-    <div className="bg-[#FFF8FE] overflow-y-auto w-full h-full px-10 py-8 text-black">
+    <div className="bg-[#fff8f8] overflow-y-auto w-full h-full px-10 py-8 text-black">
       <div className="flex flex-col gap-10 max-w-[840px]">
         <div className="text-black font-bold text-2xl">Team</div>
 
         {/* Team Members */}
         <div className="flex gap-10 flex-wrap">
           {teamMembers.map((member, index) => (
-            <ProfileIcon key={index} name={member.name} index={index} />
+            <NavLink className="bg-[#fff8f8]"
+            to ={"/profile"}
+            state= {{selectedMember: member, index}}
+            ><ProfileIcon key={index} name={member.name} index={index} /></NavLink>
+
           ))}
         </div>
+        
 
         {/* Add Member Button */}
         <button
           onClick={() => setIsDialogOpen(true)}
           className="text-sm text-[#00000080] px-2 font-semibold w-fit bg-[#FFF8FE] border-0 cursor-pointer hover:text-black"
+    
         >
           Add Member +
         </button>

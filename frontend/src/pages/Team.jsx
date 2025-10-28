@@ -33,20 +33,20 @@ const Team = () => {
         {/* Team Members */}
         <div className="flex gap-10 flex-wrap">
           {teamMembers.map((member, index) => (
-            <NavLink className="bg-[#fff8f8]"
-            to ={"/profile"}
-            state= {{selectedMember: member, index}}
-            ><ProfileIcon key={index} name={member.name} index={index} /></NavLink>
-
+            <NavLink
+              className="bg-[#fff8f8]"
+              to={"/profile"}
+              state={{ selectedMember: member, index }}
+            >
+              <ProfileIcon key={index} name={member.name} index={index} />
+            </NavLink>
           ))}
         </div>
-        
 
         {/* Add Member Button */}
         <button
           onClick={() => setIsDialogOpen(true)}
           className="text-sm text-[#00000080] px-2 font-semibold w-fit bg-[#FFF8FE] border-0 cursor-pointer hover:text-black"
-    
         >
           Add Member +
         </button>

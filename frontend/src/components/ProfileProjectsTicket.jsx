@@ -15,7 +15,7 @@ const ProfileProjectsTicket = ({
   const year = date.getFullYear();
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-white px-2 py-3 rounded-lg shadow-md">
       <div className="flex flex-col gap-0.5">
         <div className="flex justify-between items-start">
           <div>
@@ -25,16 +25,12 @@ const ProfileProjectsTicket = ({
           </div>
           <MoreHorizontal className="w-5 h-5 text-gray-700" />
         </div>
-        <div className="flex gap-1.5 items-center text-[#00000080] font-semibold mb-3 text-xs">
+        <div className="flex gap-1.5 items-center text-[#00000080] font-semibold text-xs">
           <p>
             {month} {year}
           </p>
           <p className="text-base">|</p>
           <p>{smallDesc}</p>
-        </div>
-
-        <div className="text-sm text-[#00000080] font-semibold">
-          <ProjectDesc longDesc={longDesc} />
         </div>
       </div>
     </div>

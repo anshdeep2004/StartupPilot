@@ -1,32 +1,34 @@
-import React from 'react';
-import LandingPage from './pages/LandingPage';
-import LeftSideBar from './components/LeftSideBar';
-import RightSideBar from './components/RightSideBar';
-import Dashboard from './pages/Dashboard';
-import Team from './pages/Team';
-import Board from './pages/Board';
-import Settings from './pages/Settings';
-import Project from './pages/Project';
-import Profile from './pages/Profile';
+import React from "react";
+import LandingPage from "./pages/LandingPage";
+import LeftSideBar from "./components/LeftSideBar";
+import RightSideBar from "./components/RightSideBar";
+import Dashboard from "./pages/Dashboard";
+import Team from "./pages/Team";
+import Board from "./pages/Board";
+import Settings from "./pages/Settings";
+import Project from "./pages/Project";
+import Profile from "./pages/Profile";
+import Tasks from "./pages/Tasks";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className='flex w-screen h-screen justify-center items-center'>
-        <LeftSideBar />
+    <div className="flex w-screen h-screen justify-center items-center">
+      <LeftSideBar />
 
-        <div className="w-full h-full ml-[20%] mr-[20%]">
-          <Routes>
-            <Route path='/' element={<Dashboard />} />
-            <Route path='/team' element={<Team />} />
-            <Route path='/board' element={<Board />} />
-            <Route path='/settings' element={<Settings />} />
-            <Route path='/project' element={<Project />} />
-            <Route path='/profile' element={< Profile/>}/>
-          </Routes>
-        </div>
+      <div className="w-full h-full ml-[20%] mr-[20%]">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/board" element={<Board />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/project" element={<Project />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/tasks" element={<Tasks />} />
+        </Routes>
+      </div>
 
-        <RightSideBar />
+      <RightSideBar />
     </div>
   );
 }

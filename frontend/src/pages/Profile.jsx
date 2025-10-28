@@ -18,48 +18,46 @@ const Profile = () => {
     "DevOps",
     "Node JS",
   ]);
-  const [newSkill, setNewSkill] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  // const [newSkill, setNewSkill] = useState("");
+  // const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const [projects, setProjects] = React.useState([
     {
       projectName: "Honors Final Project",
       startDate: "2004-02-28",
       smallDesc: "Website to support projects",
-      longDesc:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
   ]);
 
-  const [isDialogOpen1, setIsDialogOpen1] = React.useState(false);
-  const [newProjectName, setNewProjectName] = React.useState("");
-  const [newProjectStartDate, setNewProjectStartDate] = React.useState("");
-  const [newProjectSmallDesc, setNewProjectSmallDesc] = React.useState("");
-  const [newProjectLongDesc, setNewProjectLongDesc] = React.useState("");
+  // const [isDialogOpen1, setIsDialogOpen1] = React.useState(false);
+  // const [newProjectName, setNewProjectName] = React.useState("");
+  // const [newProjectStartDate, setNewProjectStartDate] = React.useState("");
+  // const [newProjectSmallDesc, setNewProjectSmallDesc] = React.useState("");
+  // const [newProjectLongDesc, setNewProjectLongDesc] = React.useState("");
 
-  const handleAddProject = () => {
-    if (
-      newProjectName.trim() &&
-      newProjectStartDate.trim() &&
-      newProjectSmallDesc.trim() &&
-      newProjectLongDesc.trim()
-    ) {
-      setProjects([
-        ...projects,
-        {
-          projectName: newProjectName,
-          startDate: newProjectStartDate,
-          smallDesc: newProjectSmallDesc,
-          longDesc: newProjectLongDesc,
-        },
-      ]);
-      setNewProjectName("");
-      setNewProjectStartDate("");
-      setNewProjectSmallDesc("");
-      setNewProjectLongDesc("");
-      setIsDialogOpen1(false);
-    }
-  };
+  // const handleAddProject = () => {
+  //   if (
+  //     newProjectName.trim() &&
+  //     newProjectStartDate.trim() &&
+  //     newProjectSmallDesc.trim() &&
+  //     newProjectLongDesc.trim()
+  //   ) {
+  //     setProjects([
+  //       ...projects,
+  //       {
+  //         projectName: newProjectName,
+  //         startDate: newProjectStartDate,
+  //         smallDesc: newProjectSmallDesc,
+  //         longDesc: newProjectLongDesc,
+  //       },
+  //     ]);
+  //     setNewProjectName("");
+  //     setNewProjectStartDate("");
+  //     setNewProjectSmallDesc("");
+  //     setNewProjectLongDesc("");
+  //     setIsDialogOpen1(false);
+  //   }
+  // };
 
   return (
     <div className="bg-[#fff8f8] overflow-y-auto w-full h-full px-10 py-8 text-black">
@@ -102,14 +100,14 @@ const Profile = () => {
           ))}
 
           {/* Add Skills*/}
-          <div className="w-full">
+          {/* <div className="w-full">
             <button
               onClick={() => setIsDialogOpen(true)}
               className="text-sm text-[#00000080] px-3 py-2 font-semibold rounded-full w-fit bg-[#FFF8FE] border-0 cursor-pointer hover:text-black"
             >
               Add Skill +
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/*Projects */}
@@ -125,23 +123,23 @@ const Profile = () => {
                 projectName={project.projectName}
                 startDate={project.startDate}
                 smallDesc={project.smallDesc}
-                longDesc={project.longDesc}
+                //longDesc={project.longDesc}
               />
             ))}
           </div>
 
           {/*Add Projects */}
-          <div
+          {/* <div
             onClick={() => setIsDialogOpen1(true)}
             className="cursor-pointer text-sm text-[#00000080] font-semibold hover:text-black w-fit m-3"
           >
             Add Project +
-          </div>
+          </div> */}
         </div>
       </div>
 
       {/*Dialog Box For Add Skill */}
-      {isDialogOpen && (
+      {/* {isDialogOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
             <h2 className="text-lg font-semibold mb-3">Add a new skill</h2>
@@ -174,25 +172,25 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Dialog Box For Add Project */}
-      {isDialogOpen1 && (
+      {/* {isDialogOpen1 && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div className="bg-white p-6 rounded-md shadow-md w-[400px]">
-            <h2 className="text-lg font-semibold mb-4">Add Project</h2>
+            <h2 className="text-lg font-semibold mb-4">Add Project</h2> */}
 
-            {/* Project Name */}
-            <input
+      {/* Project Name */}
+      {/* <input
               type="text"
               placeholder="Project Name"
               value={newProjectName}
               onChange={(e) => setNewProjectName(e.target.value)}
               className="w-full border p-2 mb-3 rounded"
-            />
+            /> */}
 
-            {/* Project Start Date (Calendar Picker) */}
-            <label className="block text-sm font-medium mb-1">
+      {/* Project Start Date (Calendar Picker) */}
+      {/* <label className="block text-sm font-medium mb-1">
               Start Date:
             </label>
             <input
@@ -200,26 +198,26 @@ const Profile = () => {
               value={newProjectStartDate}
               onChange={(e) => setNewProjectStartDate(e.target.value)}
               className="w-full border p-2 mb-3 rounded"
-            />
+            /> */}
 
-            {/* Small Description (one line) */}
-            <input
+      {/* Small Description (one line) */}
+      {/* <input
               type="text"
               placeholder="Short Description"
               value={newProjectSmallDesc}
               onChange={(e) => setNewProjectSmallDesc(e.target.value)}
               className="w-full border p-2 mb-3 rounded"
-            />
+            /> */}
 
-            {/* Long Description (multi-line) */}
-            <textarea
+      {/* Long Description (multi-line) */}
+      {/* <textarea
               placeholder="Detailed Description"
               value={newProjectLongDesc}
               onChange={(e) => setNewProjectLongDesc(e.target.value)}
               className="w-full border p-2 mb-3 rounded h-24 resize-none"
-            ></textarea>
+            ></textarea> */}
 
-            <div className="flex justify-end gap-3">
+      {/* <div className="flex justify-end gap-3">
               <button
                 onClick={() => setIsDialogOpen1(false)}
                 className="px-4 py-2 bg-gray-300 rounded"
@@ -235,7 +233,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

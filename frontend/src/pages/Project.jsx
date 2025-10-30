@@ -102,6 +102,13 @@ const Project = () => {
       longDesc:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
+    {
+      projectName: "Honors Final Project",
+      startDate: "2004-02-28",
+      smallDesc: "Website to support projects",
+      longDesc:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    },
   ]);
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -135,7 +142,7 @@ const Project = () => {
   };
 
   return (
-    <div className="bg-[#FFF8FE] overflow-y-auto w-full h-full px-10 py-8 text-black">
+    <div className="overflow-y-auto w-full h-full px-10 py-8 text-black">
       <div className="flex flex-col gap-10 max-w-[840px]">
         <div className="text-black font-bold text-2xl">Projects</div>
 

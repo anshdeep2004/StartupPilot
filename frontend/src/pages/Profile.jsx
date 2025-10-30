@@ -60,7 +60,7 @@ const Profile = () => {
   // };
 
   return (
-    <div className="bg-[#fff8f8] overflow-y-auto w-full h-full px-10 py-8 text-black">
+    <div className=" overflow-y-auto w-full h-full px-10 py-8 text-black">
       <div className="flex flex-col gap-10 max-w-[840px]">
         <div className="text-black font-bold text-2xl">Profile</div>
 

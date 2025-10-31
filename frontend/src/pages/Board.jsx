@@ -21,15 +21,11 @@ const Board = () => {
   const [selectedStartup, setSelectedStartup] = useState("Startup One");
 
   return (
-    <div className="bg-[#FFF8FE] overflow-y-auto w-full h-full px-10 py-8 text-black">
+    <div className="bg-[#FFF8FE] overflow-y-auto w-full h-full px-10 pt-8 text-black">
       <div className="flex flex-col gap-10 ">
         <div className="text-black font-bold text-2xl">Board</div>
 
-        <div className="min-h-screen bg-[#faf5ff] p-8 text-black">
-          {/* PAGE TITLE */}
-          <h1 className="text-2xl font-bold mb-6">Dashboard Overview</h1>
-
-          {/* TOP CARDS */}
+        <div className="min-h-screen bg-[#faf5ff] text-black">
           <div className="grid grid-cols-3 gap-6">
             {[
               { title: "Total Startups", value: 12 },
@@ -83,9 +79,9 @@ const Board = () => {
               <div className="bg-white rounded-2xl p-6">
                 <h2 className="font-bold mb-4">Startup Productivity Score</h2>
 
-                {/* ✅ DROPDOWN */}
+                {/* DROPDOWN */}
                 <select
-                  className="border border-gray-300 rounded-lg p-2 mb-4 w-full"
+                  className="border border-gray-300 rounded-lg p-2 mb-4 w-full bg-white"
                   value={selectedStartup}
                   onChange={(e) => setSelectedStartup(e.target.value)}
                 >
@@ -96,7 +92,7 @@ const Board = () => {
                   ))}
                 </select>
 
-                {/* ✅ GAUGE CHART */}
+                {/* GAUGE CHART */}
                 <RadialBarChart
                   width={300}
                   height={250}

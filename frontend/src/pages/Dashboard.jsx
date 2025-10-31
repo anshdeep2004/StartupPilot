@@ -166,7 +166,7 @@ const Dashboard = () => {
       <div className="flex flex-col gap-5">
         <div className="text-black font-bold text-2xl">Dashboard</div>
 
-        {/* ✅ Masonry layout for cards */}
+        {/* Masonry layout for cards */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-3">
           {startups.map((startup, index) => (
             <StartupTicket
@@ -190,7 +190,7 @@ const Dashboard = () => {
         {/* Left: Statistics Card */}
         <div className="xl:col-span-2 bg-white rounded-2xl p-6 shadow-sm">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-gray-800">Statistics of Active Applications</h2>
+            <h2 className="text-lg font-semibold text-gray-800">Statistics of Active Startups</h2>
             <select className="bg-gray-100 text-sm rounded-md px-3 py-1.5">
               <option>Month</option>
               <option>Year</option>
@@ -216,22 +216,22 @@ const Dashboard = () => {
           <div className="flex justify-center gap-6 mt-6 text-sm">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-blue-400"></span>
-              <span>Applications</span>
+              <span>StartupPilot</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
-              <span>Shortlisted</span>
+              <span>The AgriDoctor</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-red-400"></span>
-              <span>Rejected</span>
+              <span>Social Graphs</span>
             </div>
           </div>
         </div>
 
         {/* Right: Recent Added Section */}
         <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Recent Added Jobs</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">Recent Added Employees</h2>
 
           <div className="space-y-4">
             {[

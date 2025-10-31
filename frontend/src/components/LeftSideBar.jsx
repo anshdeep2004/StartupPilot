@@ -16,7 +16,7 @@ const LeftSideBar = () => {
         {/* Navigation */}
         <div className="flex flex-col px-3">
           <NavLink
-            to="/"
+            to="/dashboard"
             end
             className={({ isActive }) =>
               `flex gap-3 p-3 rounded-md mb-1 ${

@@ -149,98 +149,12 @@ const Project = () => {
   };
 
   return (
-    // <div className="overflow-y-auto w-full h-full px-10 py-8 text-black">
-    //   <div className="flex flex-col gap-10 max-w-[840px]">
-    //     <div className="text-black font-bold text-2xl">Projects</div>
-
-    //     <div className="flex flex-col gap-6">
-    //       {projects.map((project, index) => (
-    //         <ProjectsTicket
-    //           key={index}
-    //           projectName={project.projectName}
-    //           startDate={project.startDate}
-    //           smallDesc={project.smallDesc}
-    //           longDesc={project.longDesc}
-    //         />
-    //       ))}
-    //     </div>
-
-    //     <div
-    //       onClick={() => setIsDialogOpen(true)}
-    //       className="cursor-pointer text-sm text-[#00000080] font-semibold hover:text-black w-fit m-3"
-    //     >
-    //       Add Project +
-    //     </div>
-    //   </div>
-
-    //   {/* Dialog Box */}
-    //   {isDialogOpen && (
-    //     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-    //       <div className="bg-white p-6 rounded-md shadow-md w-[400px]">
-    //         <h2 className="text-lg font-semibold mb-4">Add Project</h2>
-
-    //         {/* Project Name */}
-    //         <input
-    //           type="text"
-    //           placeholder="Project Name"
-    //           value={newProjectName}
-    //           onChange={(e) => setNewProjectName(e.target.value)}
-    //           className="w-full border p-2 mb-3 rounded"
-    //         />
-
-    //         {/* Project Start Date (Calendar Picker) */}
-    //         <label className="block text-sm font-medium mb-1">
-    //           Start Date:
-    //         </label>
-    //         <input
-    //           type="date"
-    //           value={newProjectStartDate}
-    //           onChange={(e) => setNewProjectStartDate(e.target.value)}
-    //           className="w-full border p-2 mb-3 rounded"
-    //         />
-
-    //         {/* Small Description (one line) */}
-    //         <input
-    //           type="text"
-    //           placeholder="Short Description"
-    //           value={newProjectSmallDesc}
-    //           onChange={(e) => setNewProjectSmallDesc(e.target.value)}
-    //           className="w-full border p-2 mb-3 rounded"
-    //         />
-
-    //         {/* Long Description (multi-line) */}
-    //         <textarea
-    //           placeholder="Detailed Description"
-    //           value={newProjectLongDesc}
-    //           onChange={(e) => setNewProjectLongDesc(e.target.value)}
-    //           className="w-full border p-2 mb-3 rounded h-24 resize-none"
-    //         ></textarea>
-
-    //         <div className="flex justify-end gap-3">
-    //           <button
-    //             onClick={() => setIsDialogOpen(false)}
-    //             className="px-4 py-2 bg-gray-300 rounded"
-    //           >
-    //             Cancel
-    //           </button>
-    //           <button
-    //             onClick={handleAddStartup}
-    //             className="px-4 py-2 bg-[#6358D5] text-white rounded"
-    //           >
-    //             Confirm
-    //           </button>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   )}
-    // </div>
-
     <div className="overflow-y-auto w-full h-full px-10 py-8 text-black">
     <div className="flex flex-col gap-10 max-w-[1200px] mx-auto">
 
       <div className="text-black font-bold text-3xl">Projects</div>
 
-      {/* ✅ Updated project layout → Beautiful horizontal grid  */}
+      {/* Updated project layout → Beautiful horizontal grid  */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project, index) => (
           <ProjectsTicket
@@ -253,7 +167,7 @@ const Project = () => {
         ))}
       </div>
 
-      {/* ✅ Make add button beautiful */}
+      {/* Make add button beautiful */}
       <button
         onClick={() => setIsDialogOpen(true)}
         className="px-4 py-2 bg-[#6358D5] text-white rounded-md shadow hover:shadow-lg hover:bg-[#5246c7] transition w-fit"
@@ -263,11 +177,11 @@ const Project = () => {
     </div>
 
     <div className="mt-8 space-y-6">
-      <div className="mt-8 mb-4">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-[#7C3AED] via-[#C084FC] to-[#F472B6] bg-clip-text text-transparent">
+      <div className="mt-8 mb-2">
+        <h2 className="text-2xl font-bold bg-black bg-clip-text text-transparent">
           Project Progress Tracker
         </h2>
-        <p className="text-white/70 text-sm mt-1">
+        <p className="text-black text-sm mt-1">
           Track your ongoing projects and stay aligned with your weekly goals. Every step counts toward building something impactful.
         </p>
       </div>

@@ -13,30 +13,6 @@ import Login from "./pages/Login";
 import { Routes, Route, Navigate } from "react-router-dom";
 import logo_white_back from "/images/logo_white_back.png";
 
-// function App() {
-//   return (
-//     <div className="w-screen h-screen bg-gradient-to-br from-[#faf5ff] via-[#f2e8ff] to-[#e8d9ff] flex justify-center items-center">
-//       <LeftSideBar />
-
-//       <div className="w-full h-full ml-[20%] mr-[20%] p-6">
-//         <div className="w-full h-full bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl p-6 overflow-y-auto">
-//           <Routes>
-//             <Route path="/" element={<Dashboard />} />
-//             <Route path="/team" element={<Team />} />
-//             <Route path="/board" element={<Board />} />
-//             <Route path="/settings" element={<Settings />} />
-//             <Route path="/project" element={<Project />} />
-//             <Route path="/profile" element={<Profile />} />
-//             <Route path="/tasks" element={<Tasks />} />
-//           </Routes>
-//         </div>
-//       </div>
-
-//       <RightSideBar />
-//     </div>
-//   );
-// }
-
 function App() {
   // decide whether user is logged in (client-side demo auth)
   const [user, setUser] = React.useState(() => {
@@ -86,7 +62,7 @@ function App() {
   }
 
   return (
-    <div className="w-screen h-screen bg-gradient-to-br from-[#edddff] via-[#f1e7fd] to-[#d8c7ff]  flex flex-col gap-2 justify-center items-start p-4">
+    <div className="w-screen h-screen bg-gradient-to-br from-[#edddff] via-[#f1e7fd] to-[#d8c7ff]  flex flex-col gap-2 justify-center items-start">
       <div className="flex justify-between items-center w-full mb-2 pr-6">
         <div className="flex items-center w-full px-8 py-2 rounded-2xl">
           {/* Left Section (Logo + Name) */}
@@ -138,7 +114,7 @@ function App() {
       </div>
       
 
-      <div className="w-full h-full bg-[#FFF8FE] backdrop-blur-xl rounded-3xl shadow-2xl flex overflow-hidden">
+      <div className="w-full h-full bg-[#FFF8FE] backdrop-blur-xl flex overflow-hidden">
         {/* Left Sidebar inside the box */}
         <LeftSideBar />
 
@@ -164,36 +140,3 @@ function App() {
 }
 
 export default App;
-
-// import React from 'react';
-// import LeftSideBar from './components/LeftSideBar';
-// import RightSideBar from './components/RightSideBar';
-// import Dashboard from './pages/Dashboard';
-// import Team from './pages/Team';
-// import Board from './pages/Board';
-// import Settings from './pages/Settings';
-// import { Routes, Route } from "react-router-dom";
-
-// function App() {
-//   return (
-//     <div className='flex w-screen h-screen'>
-//       {/* Fixed Left Sidebar */}
-//       <LeftSideBar />
-
-//       {/* Main Content Area */}
-//       <div className="flex-1 ml-[20%] p-6">
-//         <Routes>
-//           <Route path="/" element={<Dashboard />} />
-//           <Route path="/team" element={<Team />} />
-//           <Route path="/board" element={<Board />} />
-//           <Route path="/settings" element={<Settings />} />
-//         </Routes>
-//       </div>
-
-//       {/* Right Sidebar */}
-//       <RightSideBar />
-//     </div>
-//   );
-// }
-
-// export default App;

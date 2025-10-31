@@ -55,7 +55,7 @@ const ProfileIcon = ({ name = "", index = 0 }) => {
 
   // ✅ Dynamic size logic
   const isNameEmpty = !name.trim();
-  const iconSize = isNameEmpty ? 55 : 50; // 30px if name empty, else 50px
+  const iconSize = isNameEmpty ? 30 : 50; // 30px if name empty, else 50px
 
   return (
     <div className="flex flex-col gap-2 justify-center items-center">

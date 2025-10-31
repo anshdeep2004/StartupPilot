@@ -13,11 +13,7 @@ const Login = () => {
   const [password, setPassword] = React.useState('')
   const [error, setError] = React.useState('')
 
-  React.useEffect(() => {
-    // if already logged in, go home
-    const u = localStorage.getItem('sp_user')
-    if (u) navigate('/')
-  }, [])
+  // no persistent auth for now — login simply navigates to dashboard on success
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -27,11 +23,10 @@ const Login = () => {
       setError('Invalid username or password')
       return
     }
-    // store minimal user info locally (no backend/auth here)
-    localStorage.setItem('sp_user', JSON.stringify({ username: found.username, displayName: found.displayName }))
-    // notify other windows/components that login occurred
+  // set a short-lived session flag so the app shows the dashboard after login
+  try { sessionStorage.setItem('sp_logged_in', '1') } catch { /* ignore */ }
   try { window.dispatchEvent(new Event('sp-login')) } catch { /* ignore */ }
-    navigate('/')
+  navigate('/')
   }
 
   return (

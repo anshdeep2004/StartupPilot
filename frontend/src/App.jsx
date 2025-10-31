@@ -10,47 +10,26 @@ import Project from "./pages/Project";
 import Profile from "./pages/Profile";
 import Tasks from "./pages/Tasks";
 import Login from "./pages/Login";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, NavLink } from "react-router-dom";
 import logo_white_back from "/images/logo_white_back.png";
+import Investors from "./pages/Investors";
 
 function App() {
-  // decide whether user is logged in (client-side demo auth)
-  const [user, setUser] = React.useState(() => {
-    try {
-      const raw = typeof window !== 'undefined' ? localStorage.getItem('sp_user') : null;
-      return raw ? JSON.parse(raw) : null;
-    } catch {
-      return null;
-    }
-  });
+  // session-based demo auth: show Login first unless session flag is set
+  const [loggedIn, setLoggedIn] = React.useState(() => {
+    try { return typeof window !== 'undefined' && sessionStorage.getItem('sp_logged_in') === '1' } catch { return false }
+  })
 
-  // listen for login events or storage changes so the app updates reactively
   React.useEffect(() => {
-    const onLogin = () => {
-      try {
-        const raw = localStorage.getItem('sp_user');
-        setUser(raw ? JSON.parse(raw) : null);
-      } catch {
-        setUser(null);
-      }
-    };
-
-    const onStorage = (e) => {
-      if (e.key === 'sp_user') {
-        try { setUser(e.newValue ? JSON.parse(e.newValue) : null); } catch { setUser(null); }
-      }
-    };
-
-    window.addEventListener('sp-login', onLogin);
-    window.addEventListener('storage', onStorage);
-    return () => {
-      window.removeEventListener('sp-login', onLogin);
-      window.removeEventListener('storage', onStorage);
-    };
-  }, []);
+    const onLogin = () => { try { setLoggedIn(sessionStorage.getItem('sp_logged_in') === '1') } catch { setLoggedIn(false) } }
+    const onStorage = (e) => { if (e.key === 'sp_logged_in') { try { setLoggedIn(e.newValue === '1') } catch { setLoggedIn(false) } } }
+    window.addEventListener('sp-login', onLogin)
+    window.addEventListener('storage', onStorage)
+    return () => { window.removeEventListener('sp-login', onLogin); window.removeEventListener('storage', onStorage) }
+  }, [])
 
   // If not logged in, only render the login route and redirect all other routes to /login
-  if (!user) {
+  if (!loggedIn) {
     return (
       <div className="w-screen h-screen bg-gradient-to-br from-[#edddff] via-[#f1e7fd] to-[#d8c7ff] flex items-center justify-center p-4">
         <Routes>
@@ -58,13 +37,13 @@ function App() {
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </div>
-    );
+    )
   }
 
   return (
     <div className="w-screen h-screen bg-gradient-to-br from-[#edddff] via-[#f1e7fd] to-[#d8c7ff]  flex flex-col gap-2 justify-center items-start">
-      <div className="flex justify-between items-center w-full mb-2 pr-6">
-        <div className="flex items-center w-full px-8 py-2 rounded-2xl">
+      <div className="flex justify-between items-center w-full pr-6">
+        <div className="flex items-center w-full px-8 py-3 rounded-2xl">
           {/* Left Section (Logo + Name) */}
           <div className="flex items-center gap-3">
             <img src={logo_white_back} alt="logo" className="w-6 h-6" />
@@ -86,7 +65,7 @@ function App() {
 
           {/* Right Section (Buttons) */}
           <div className="flex items-center gap-4">
-            <button className="ml-6 py-2 rounded-xl font-semibold
+            <NavLink to={"/investors"} className="ml-6 py-2 rounded-xl font-semibold
               bg-transparent
               text-transparent bg-clip-text
               bg-gradient-to-r from-[#A855F7] to-[#FBC02D]
@@ -95,7 +74,7 @@ function App() {
               hover:from-[#A855F7] hover:to-[#FBC02D]
               transition duration-300">
               Investors
-            </button>
+            </NavLink>
             <button className="ml-2 py-2 rounded-xl font-semibold
               bg-transparent
               text-transparent bg-clip-text
@@ -129,6 +108,7 @@ function App() {
             <Route path="/project" element={<Project />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/investors" element={<Investors />} />
           </Routes>
         </div>
 

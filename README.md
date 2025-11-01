@@ -1,10 +1,10 @@
-#🚀 StartupPilot
+# 🚀 StartupPilot
 A Smart Task & Startup Management Platform
 
 StartupPilot is a full-stack web application designed to help early-stage startups organize their workflow, manage teams, track tasks, and receive AI-powered suggestions for growth.
 It provides a clean dashboard, structured project management, team handling, and an investors exploration module (under development).
 
-##✅ Features
+## ✅ Features
 
 🔹 Before Login
 

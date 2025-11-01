@@ -1,129 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileIcon from "../components/ProfileIcon";
 import TaskBar from "../components/TaskBar";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { NavLink, useLocation } from "react-router-dom";
+import http from "../api/http";
 
 const Tasks = () => {
   const [activeTab, setActiveTab] = useState("yet");
 
   // ---- TASK DATA ----
-  const yetToStartTasks = [
-    {
-      id: 1,
-      desc: "Design homepage layout",
-      state: "Unassigned",
-      assignee: <ProfileIcon index={0} />,
-    },
-    {
-      id: 2,
-      desc: "Prepare wireframe for dashboard",
-      state: "Assigned",
-      assignee: <ProfileIcon index={1} />,
-    },
-    {
-      id: 3,
-      desc: "Design Ai ChatBot",
-      state: "Assigned",
-      assignee: <ProfileIcon index={2} />,
-    },
-    {
-      id: 4,
-      desc: "Set up CI/CD pipeline",
-      state: "Assigned",
-      assignee: <ProfileIcon index={3} />,
-    },
-    {
-      id: 5,
-      desc: "Implement RESTful API",
-      state: "Assigned",
-      assignee: <ProfileIcon index={4} />,
-    },
-    {
-      id: 6,
-      desc: "Design database schema",
-      state: "Assigned",
-      assignee: <ProfileIcon index={5} />,
-    },
-    {
-      id: 7,
-      desc: "Integration with UI",
-      state: "Assigned",
-      assignee: <ProfileIcon index={6} />,
-    },
-    {
-      id: 8,
-      desc: "Model Training",
-      state: "Assigned",
-      assignee: <ProfileIcon index={7} />,
-    },
-  ];
+  const [yetToStartTasks, setYetToStartTasks] = useState([])
+  const [inProgressTasks, setInProgressTasks] = useState([])
+  const [doneTasks, setDoneTasks] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  const inProgressTasks = [
-    {
-      id: 9,
-      desc: "Develop authentication flow",
-      state: "Assigned",
-      assignee: <ProfileIcon index={2} />,
-    },
-    {
-      id: 10,
-      desc: "Dashboard analytics module",
-      state: "Unassigned",
-      assignee: <ProfileIcon index={3} />,
-    },
-    {
-      id: 11,
-      desc: " Profile management features",
-      state: "Unassigned",
-      assignee: <ProfileIcon index={1} />,
-    },
-    {
-      id: 12,
-      desc: "Setting up server infrastructure",
-      state: "Unassigned",
-      assignee: <ProfileIcon index={4} />,
-    },
-    {
-      id: 13,
-      desc: "Implementing payment gateway",
-      state: "Unassigned",
-      assignee: <ProfileIcon index={5} />,
-    },
-  ];
+  const location = useLocation()
+  const search = new URLSearchParams(location.search)
+  const projectId = search.get('projectId')
 
-  const doneTasks = [
-    {
-      id: 14,
-      desc: "Create GitHub repository",
-      state: "Assigned",
-      assignee: <ProfileIcon index={1} />,
-    },
-    {
-      id: 15,
-      desc: "Setup folder structure",
-      state: "Assigned",
-      assignee: <ProfileIcon index={2} />,
-    },
-    {
-      id: 16,
-      desc: "Login page UI design",
-      state: "Assigned",
-      assignee: <ProfileIcon index={3} />,
-    },
-    {
-      id: 17,
-      desc: "Authentication module",
-      state: "Assigned",
-      assignee: <ProfileIcon index={4} />,
-    },
-    {
-      id: 18,
-      desc: "Designsystem architecture",
-      state: "Assigned",
-      assignee: <ProfileIcon index={5} />,
-    },
-  ];
+  useEffect(() => {
+    let mounted = true
+    const load = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        let tasks = []
+        if (projectId) {
+          const res = await http.get(`/tasks/project/${projectId}`)
+          tasks = res.data
+        } else {
+          // aggregate all tasks from projects endpoint
+          const res = await http.get('/projects')
+          tasks = (res.data || []).flatMap(p => (p.tasks || []).map(t => ({ ...t, projectName: p.name })))
+        }
+
+        if (!mounted) return
+
+        const yet = []
+        const inprog = []
+        const done = []
+
+        tasks.forEach(t => {
+          const mapped = {
+            id: t.id,
+            desc: t.title || t.description || '',
+            state: t.status || 'todo',
+            assignee: t.assignee ? t.assignee.name : '—',
+          }
+          if (t.status === 'in_progress') inprog.push(mapped)
+          else if (t.status === 'done') done.push(mapped)
+          else yet.push(mapped)
+        })
+
+        setYetToStartTasks(yet)
+        setInProgressTasks(inprog)
+        setDoneTasks(done)
+      } catch {
+        setError('Could not load tasks from API')
+      } finally {
+        if (mounted) setLoading(false)
+      }
+    }
+    load()
+    return () => { mounted = false }
+  }, [projectId])
+  
 
   const chartData = [
     { name: "Completed", value: doneTasks.length, color: "#6EE787" },
@@ -155,12 +97,13 @@ const Tasks = () => {
                     className="border rounded-lg px-2 py-1 bg-[#f3e8ff] text-sm"
                     defaultValue={task.state}
                   >
-                    <option>Assigned</option>
-                    <option>Unassigned</option>
+                    <option value="todo">Todo</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="done">Done</option>
                   </select>
                 </td>
                 <td className="p-2 text-gray-700 font-medium">
-                  {task.assignee}
+                  {typeof task.assignee === 'string' ? task.assignee : task.assignee}
                 </td>
               </tr>
             ))}
@@ -206,9 +149,11 @@ const Tasks = () => {
       </div>
 
       {/* ---- TASK LIST ---- */}
-      {activeTab === "yet" && <TaskTable tasks={yetToStartTasks} />}
-      {activeTab === "progress" && <TaskTable tasks={inProgressTasks} />}
-      {activeTab === "done" && <TaskTable tasks={doneTasks} />}
+  {loading && <div className="text-sm text-gray-500 mt-2">Loading tasks...</div>}
+  {error && <div className="text-sm text-red-600 mt-2">{error}</div>}
+  {activeTab === "yet" && <TaskTable tasks={yetToStartTasks} />}
+  {activeTab === "progress" && <TaskTable tasks={inProgressTasks} />}
+  {activeTab === "done" && <TaskTable tasks={doneTasks} />}
     </div>
   );
 };

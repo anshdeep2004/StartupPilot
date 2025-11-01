@@ -102,6 +102,7 @@
 
 import React from "react";
 import StartupTicket from "../components/StartupTicket";
+import http from "../api/http";
 import ProfileIcon from "../components/ProfileIcon";
 import {
   BarChart,
@@ -147,17 +148,49 @@ const Dashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [newStartupName, setNewStartupName] = React.useState("");
   const [newStartupDesc, setNewStartupDesc] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    let mounted = true
+    const load = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const res = await http.get('/startups')
+        if (!mounted) return
+        // backend returns array of { id, name, description }
+        const items = res.data.map(s => ({ name: s.name, desc: s.description || '' }))
+        setStartups(items)
+      } catch {
+        // keep existing hardcoded data as a fallback
+        setError('Could not load startups from API (backend may be down)')
+      } finally {
+        if (mounted) setLoading(false)
+      }
+    }
+    load()
+    return () => { mounted = false }
+  }, [])
 
   const handleAddStartup = () => {
-    if (newStartupName.trim() && newStartupDesc.trim()) {
-      setStartups([
-        ...startups,
-        { name: newStartupName, desc: newStartupDesc },
-      ]);
-      setNewStartupName("");
-      setNewStartupDesc("");
-      setIsDialogOpen(false);
-    }
+    if (!(newStartupName.trim() && newStartupDesc.trim())) return
+    // optimistic UI: add locally then try to persist
+    const local = { name: newStartupName, desc: newStartupDesc }
+    setStartups(prev => [local, ...prev])
+    setNewStartupName("")
+    setNewStartupDesc("")
+    setIsDialogOpen(false)
+
+    ;(async () => {
+      try {
+        await http.post('/startups', { name: local.name, description: local.desc })
+        // optionally refetch or accept optimistic update
+      } catch (err) {
+        // on error, inform user and keep optimistic element (could remove)
+        console.error('Failed to save startup', err)
+      }
+    })()
   };
 
   return (
@@ -176,6 +209,9 @@ const Dashboard = () => {
             />
           ))}
         </div>
+
+        {loading && <div className="text-sm text-gray-500 mt-2">Loading startups...</div>}
+        {error && <div className="text-sm text-red-600 mt-2">{error}</div>}
 
         {/* Add Startup Button */}
         <div

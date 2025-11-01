@@ -92,6 +92,7 @@
 
 import React from "react";
 import ProjectsTicket from "../components/ProjectsTicket";
+import http from "../api/http";
 
 const Project = () => {
   const [projects, setProjects] = React.useState([
@@ -123,6 +124,29 @@ const Project = () => {
   const [newProjectStartDate, setNewProjectStartDate] = React.useState("");
   const [newProjectSmallDesc, setNewProjectSmallDesc] = React.useState("");
   const [newProjectLongDesc, setNewProjectLongDesc] = React.useState("");
+  const [loading, setLoading] = React.useState(false)
+  const [error, setError] = React.useState(null)
+
+  React.useEffect(() => {
+    let mounted = true
+    const load = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const res = await http.get('/projects')
+        if (!mounted) return
+        // res.data expected to be an array of projects with fields matching backend
+        const mapped = res.data.map(p => ({ id: p.id, projectName: p.name, startDate: p.startDate, smallDesc: p.shortDesc, longDesc: p.longDesc }))
+        setProjects(mapped)
+      } catch {
+        setError('Could not load projects from API')
+      } finally {
+        if (mounted) setLoading(false)
+      }
+    }
+    load()
+    return () => { mounted = false }
+  }, [])
 
   const handleAddStartup = () => {
     if (
@@ -131,20 +155,20 @@ const Project = () => {
       newProjectSmallDesc.trim() &&
       newProjectLongDesc.trim()
     ) {
-      setProjects([
-        ...projects,
-        {
-          projectName: newProjectName,
-          startDate: newProjectStartDate,
-          smallDesc: newProjectSmallDesc,
-          longDesc: newProjectLongDesc,
-        },
-      ]);
+      const local = { projectName: newProjectName, startDate: newProjectStartDate, smallDesc: newProjectSmallDesc, longDesc: newProjectLongDesc }
+      setProjects(prev => [local, ...prev])
       setNewProjectName("");
       setNewProjectStartDate("");
       setNewProjectSmallDesc("");
       setNewProjectLongDesc("");
       setIsDialogOpen(false);
+      ;(async () => {
+        try {
+          await http.post('/projects', { name: local.projectName, startDate: local.startDate, shortDesc: local.smallDesc, longDesc: local.longDesc })
+        } catch (e) {
+          console.error('Failed to save project', e)
+        }
+      })()
     }
   };
 
@@ -158,7 +182,8 @@ const Project = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project, index) => (
           <ProjectsTicket
-            key={index}
+            key={project.id || index}
+            projectId={project.id}
             projectName={project.projectName}
             startDate={project.startDate}
             smallDesc={project.smallDesc}
@@ -166,6 +191,9 @@ const Project = () => {
           />
         ))}
       </div>
+
+      {loading && <div className="text-sm text-gray-500 mt-2">Loading projects...</div>}
+      {error && <div className="text-sm text-red-600 mt-2">{error}</div>}
 
       {/* Make add button beautiful */}
       <button

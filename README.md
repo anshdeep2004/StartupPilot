@@ -1,10 +1,11 @@
-🚀 StartupPilot
+#🚀 StartupPilot
 A Smart Task & Startup Management Platform
 
 StartupPilot is a full-stack web application designed to help early-stage startups organize their workflow, manage teams, track tasks, and receive AI-powered suggestions for growth.
 It provides a clean dashboard, structured project management, team handling, and an investors exploration module (under development).
 
-✅ Features
+##✅ Features
+
 🔹 Before Login
 
 Landing/Cover page with project overview
@@ -30,7 +31,7 @@ Investors Networking – Explore potential investors (under development)
 
 Settings Panel – User profile, roles, security & more
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 Frontend
 
 React.js
@@ -49,7 +50,7 @@ PostgreSQL
 AI Module (future work)
 
 
-📌 Current Progress
+## 📌 Current Progress
 
 ✅ UI/UX Design completed in Figma
 ✅ Frontend structure created
@@ -60,7 +61,7 @@ AI Module (future work)
 ⏳ AI Recommendation Engine – in development
 ⏳ Investors Networking Module – in development
 
-🧪 Methodology / Workflow
+## 🧪 Methodology / Workflow
 
 Agile development with continuous iteration
 
@@ -70,22 +71,22 @@ Clear commit history & branching workflow
 
 Focus on clean UI, user-first experience, and scalable architecture
 
-How to run the project
+## How to run the project
 
-# Clone repository
+### Clone repository
 git clone [https://github.com/your-username/StartupPilot.git](https://github.com/anshdeep2004/StartupPilot)
 
-# Navigate to frontend
+### Navigate to the folder
 cd StartupPilot
 
-# Install dependencies
+### Install dependencies
 npm install
 
-# Start development server
+### Start development server
 npm run dev
 
 
-Contributors
+## Contributors
 
 Anshdeep Singh Bhandari 
 
@@ -93,7 +94,7 @@ Vedika Jaipurkar
 
 Mentor - Prof. Vishwas Bhagwat
 
-⭐ Support the Project
+## ⭐ Support the Project
 
 If you like this project, please give it a ⭐ on GitHub!
 

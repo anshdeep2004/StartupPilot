@@ -32,33 +32,38 @@ Investors Networking – Explore potential investors (under development)
 Settings Panel – User profile, roles, security & more
 
 ## 🛠️ Tech Stack
-Frontend
+### Frontend
 
 React.js
 Tailwind CSS
 Vite
 
-Backend 
+### Backend 
 
 Node.js
 Express.js
 
-Database (planned)
+### Database (planned)
 
 PostgreSQL
 
-AI Module (future work)
+### AI Module (future work)
 
 
 ## 📌 Current Progress
 
 ✅ UI/UX Design completed in Figma
+
 ✅ Frontend structure created
+
 ✅ Pages & layout development 
+
 ✅ Dashboard, Startup flow, Task Managemnet and Profile implemented
+
 ✅ Backend Development
 
 ⏳ AI Recommendation Engine – in development
+
 ⏳ Investors Networking Module – in development
 
 ## 🧪 Methodology / Workflow
@@ -98,6 +103,3 @@ Mentor - Prof. Vishwas Bhagwat
 
 If you like this project, please give it a ⭐ on GitHub!
 
-Clear commit history & branching workflow
-
-Focus on clean UI, user-first experience, and scalable architecture

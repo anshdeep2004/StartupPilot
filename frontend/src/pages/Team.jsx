@@ -55,7 +55,7 @@ const Team = () => {
       {/* Dialog Box */}
       {isDialogOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-md shadow-md w-[400px]">
+          <div className="bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF]  p-6 rounded-md shadow-md w-[400px]">
             <h2 className="text-lg font-bold mb-4">Add Team Member</h2>
 
             <input
@@ -63,7 +63,7 @@ const Team = () => {
               placeholder="Full Name"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
-              className="w-full border p-2 mb-3 rounded"
+              className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
             />
 
             <input
@@ -71,7 +71,7 @@ const Team = () => {
               placeholder="Role"
               value={newRole}
               onChange={(e) => setNewRole(e.target.value)}
-              className="w-full border p-2 mb-3 rounded"
+              className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
             />
 
             <div className="flex justify-end gap-3">

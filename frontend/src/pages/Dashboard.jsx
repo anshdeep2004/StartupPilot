@@ -190,7 +190,9 @@ const Dashboard = () => {
         {/* Left: Statistics Card */}
         <div className="xl:col-span-2 bg-white rounded-2xl p-6 shadow-sm">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-gray-800">Statistics of Active Startups</h2>
+            <h2 className="text-lg font-semibold text-gray-800">
+              Statistics of Active Startups
+            </h2>
             <select className="bg-gray-100 text-sm rounded-md px-3 py-1.5">
               <option>Month</option>
               <option>Year</option>
@@ -200,14 +202,32 @@ const Dashboard = () => {
           {/* 📊 Actual Chart */}
           <div className="w-full h-64 bg-gray-50 rounded-xl p-2">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
+              <BarChart
+                data={data}
+                margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
+              >
                 <XAxis dataKey="month" tick={{ fontSize: 12 }} />
                 <YAxis tick={{ fontSize: 12 }} />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="Applications" fill="#60A5FA" barSize={8} radius={[4, 4, 0, 0]} />
-                <Bar dataKey="Shortlisted" fill="#FACC15" barSize={8} radius={[4, 4, 0, 0]} />
-                <Bar dataKey="Rejected" fill="#F87171" barSize={8} radius={[4, 4, 0, 0]} />
+                <Bar
+                  dataKey="Applications"
+                  fill="#60A5FA"
+                  barSize={8}
+                  radius={[4, 4, 0, 0]}
+                />
+                <Bar
+                  dataKey="Shortlisted"
+                  fill="#FACC15"
+                  barSize={8}
+                  radius={[4, 4, 0, 0]}
+                />
+                <Bar
+                  dataKey="Rejected"
+                  fill="#F87171"
+                  barSize={8}
+                  radius={[4, 4, 0, 0]}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -231,21 +251,41 @@ const Dashboard = () => {
 
         {/* Right: Recent Added Section */}
         <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Recent Added Employees</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">
+            Recent Added Employees
+          </h2>
 
           <div className="space-y-4">
             {[
-              { title: "Jr. Frontend Engineer", company: "Spotify, Singapore", time: "2 days ago" },
-              { title: "Product Designer", company: "Spotify, Singapore", time: "6 hours ago" },
-              { title: "iOS Developer", company: "San Francisco, CA", time: "2 days ago" },
-              { title: "Brand Strategist", company: "New York, US", time: "2 days ago" },
+              {
+                title: "Jr. Frontend Engineer",
+                company: "Spotify, Singapore",
+                time: "2 days ago",
+              },
+              {
+                title: "Product Designer",
+                company: "Spotify, Singapore",
+                time: "6 hours ago",
+              },
+              {
+                title: "iOS Developer",
+                company: "San Francisco, CA",
+                time: "2 days ago",
+              },
+              {
+                title: "Brand Strategist",
+                company: "New York, US",
+                time: "2 days ago",
+              },
             ].map((job, idx) => (
               <div key={idx} className="flex items-center gap-4">
                 {/* Replace text circle with custom ProfileIcon */}
                 <ProfileIcon index={idx + 1} />
 
                 <div className="flex-1">
-                  <p className="font-semibold text-gray-800 text-sm">{job.title}</p>
+                  <p className="font-semibold text-gray-800 text-sm">
+                    {job.title}
+                  </p>
                   <p className="text-xs text-gray-500">
                     {job.company} • {job.time}
                   </p>
@@ -253,15 +293,13 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
-
         </div>
       </div>
-
 
       {/* Dialog Box */}
       {isDialogOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-md shadow-md w-[400px]">
+          <div className="bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] p-6 rounded-md border-black shadow-md w-[400px]">
             <h2 className="text-lg font-bold mb-4">Add Startup</h2>
 
             <input
@@ -269,14 +307,14 @@ const Dashboard = () => {
               placeholder="Startup Name"
               value={newStartupName}
               onChange={(e) => setNewStartupName(e.target.value)}
-              className="w-full border p-2 mb-3 rounded"
+              className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
             />
 
             <textarea
               placeholder="Startup Description"
               value={newStartupDesc}
               onChange={(e) => setNewStartupDesc(e.target.value)}
-              className="w-full border p-2 mb-3 rounded"
+              className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
             ></textarea>
 
             <div className="flex justify-end gap-3">

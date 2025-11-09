@@ -120,7 +120,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const CREDENTIALS = [
-  { username: "vedika24", password: "#vedikaJ24" },
+  { username: "vedikaJ24", password: "#vedikaJ24" },
   { username: "anshdeep28", password: "#vedikaJ24" },
 ];
 

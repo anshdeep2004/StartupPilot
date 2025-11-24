@@ -5,6 +5,10 @@ import http from "../api/http";
 const Project = () => {
   const [projects, setProjects] = React.useState([]);
 
+  // read startupId from query string (if present)
+  const paramsAll = new URLSearchParams(window.location.search);
+  const startupContextId = paramsAll.get('startupId');
+
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [newProjectName, setNewProjectName] = React.useState("");
   const [newProjectStartDate, setNewProjectStartDate] = React.useState("");
@@ -22,7 +26,11 @@ const Project = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await http.get("/projects");
+        // if a startupId is present in the query, request projects for that startup
+        const params = new URLSearchParams(window.location.search);
+        const startupId = params.get('startupId');
+        const url = startupId ? `/projects?startupId=${startupId}` : '/projects';
+        const res = await http.get(url);
 
         if (!mounted) return;
 
@@ -74,11 +82,15 @@ const Project = () => {
       // Save to backend
       (async () => {
         try {
+          // attach startupId from query when creating project
+          const params = new URLSearchParams(window.location.search);
+          const startupId = params.get('startupId');
           await http.post("/projects", {
             name: local.projectName,
             startDate: local.startDate,
             shortDesc: local.smallDesc,
             longDesc: local.longDesc,
+            startupId,
           });
         } catch (e) {
           console.error("Failed to save project", e);
@@ -102,6 +114,7 @@ const Project = () => {
               startDate={project.startDate}
               smallDesc={project.smallDesc}
               longDesc={project.longDesc}
+              startupId={startupContextId}
             />
           ))}
         </div>

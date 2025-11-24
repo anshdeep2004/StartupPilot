@@ -10,6 +10,7 @@ const ProjectsTicket = ({
   startDate = "2004-02-28",
   smallDesc = "Website to support startups",
   longDesc = "",
+  startupId = null,
 }) => {
   const date = new Date(startDate);
 
@@ -58,7 +59,7 @@ const ProjectsTicket = ({
 
         <div className="w-full h-px bg-black opacity-30 mt-8"></div>
 
-        <NavLink className="flex items-center justify-center mt-3" to={projectId ? `/tasks?projectId=${projectId}` : "/tasks"}>
+        <NavLink className="flex items-center justify-center mt-3" to={projectId ? `/tasks?projectId=${projectId}${startupId ? `&startupId=${startupId}` : ''}` : "/tasks"}>
           <h2 className="text-base font-semibold text-black">Tasks</h2>
         </NavLink>
       </div>

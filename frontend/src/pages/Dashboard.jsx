@@ -29,18 +29,6 @@ const data = [
 
 const Dashboard = () => {
   const [startups, setStartups] = React.useState([
-    {
-      name: "Startup Pilot",
-      desc: "This is the desc for startup 1 that should be longer so the height looks different naturally.",
-    },
-    {
-      name: "The AgriDoctor",
-      desc: "A tool for farmers that uses AI to detect crop diseases and recommend treatments. More text here to increase height.",
-    },
-    {
-      name: "SocialGraphs",
-      desc: "A social media analytics tool that helps find trends and sentiment.",
-    },
   ]);
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -58,7 +46,7 @@ const Dashboard = () => {
         const res = await http.get('/startups')
         if (!mounted) return
         // backend returns array of { id, name, description }
-        const items = res.data.map(s => ({ name: s.name, desc: s.description || '' }))
+        const items = res.data.map(s => ({ id: s.id, name: s.name, desc: s.description || '' }))
         setStartups(items)
       } catch {
         // keep existing hardcoded data as a fallback
@@ -101,7 +89,8 @@ const Dashboard = () => {
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-3">
           {startups.map((startup, index) => (
             <StartupTicket
-              key={index}
+              key={startup.id || index}
+              startupId={startup.id}
               startupName={startup.name}
               startUpDesc={startup.desc}
             />

@@ -44,7 +44,7 @@ import React from "react";
 import { MoreHorizontal } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-const StartupTicket = ({ startupName, startUpDesc }) => {
+const StartupTicket = ({ startupId, startupName, startUpDesc }) => {
   return (
     <div
       className="
@@ -75,7 +75,7 @@ const StartupTicket = ({ startupName, startUpDesc }) => {
       {/* Buttons */}
       <div className="flex gap-3 mt-auto pt-4">
         <NavLink
-          to="/project"
+          to={startupId ? `/project?startupId=${startupId}` : '/project'}
           className="bg-[#FBC02D] text-xs text-black hover:text-black hover:bg-[#fbc12dd3] px-4 py-2 rounded-full shadow font-medium"
         >
           Projects

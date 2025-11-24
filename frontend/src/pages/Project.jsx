@@ -89,11 +89,11 @@ const Project = () => {
 
   return (
     <div className="overflow-y-auto w-full h-full px-10 py-8 text-black">
-      <div className="flex flex-col gap-10 max-w-[1200px] mx-auto">
-        <div className="text-black font-bold text-3xl">Projects</div>
+      <div className="flex flex-col gap-5 max-w-[1200px] mx-auto">
+        <div className="text-black font-bold text-2xl">Projects</div>
 
         {/* ✅ SINGLE CLEAN GRID — merged version */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project, index) => (
             <ProjectsTicket
               key={project.id || index}
@@ -114,7 +114,7 @@ const Project = () => {
         {/* ✅ Add Project Button */}
         <button
           onClick={() => setIsDialogOpen(true)}
-          className="px-4 py-2 bg-[#6358D5] text-white rounded-md shadow hover:shadow-lg hover:bg-[#5246c7] transition w-fit"
+          className="bg-[#faf5ff] cursor-pointer text-sm text-[#020202aa] font-semibold hover:text-black w-fit mt-3"
         >
           + Add Project
         </button>

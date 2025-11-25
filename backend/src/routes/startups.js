@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const prisma = require('../db/prismaClient');
+const { authenticate, requireRole } = require('../middleware/auth');
 
 // GET /api/v1/startups
 router.get('/', async (req, res, next) => {
@@ -20,7 +21,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // POST /api/v1/startups
-router.post('/', async (req, res, next) => {
+router.post('/', authenticate, requireRole('ADMIN'), async (req, res, next) => {
   try {
     const { name, description, createdById } = req.body;
     if (!name) return res.status(400).json({ error: { message: 'Name is required' } });
@@ -30,7 +31,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // PUT /api/v1/startups/:id
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', authenticate, requireRole('ADMIN'), async (req, res, next) => {
   try {
     const { name, description } = req.body;
     const updated = await prisma.startup.update({ where: { id: req.params.id }, data: { name, description } });
@@ -39,7 +40,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // DELETE /api/v1/startups/:id
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authenticate, requireRole('ADMIN'), async (req, res, next) => {
   try {
     await prisma.startup.delete({ where: { id: req.params.id } });
     res.status(204).send();

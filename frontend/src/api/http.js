@@ -9,3 +9,11 @@ const http = axios.create({
 })
 
 export default http;
+
+// set auth header from stored token if present
+try {
+  const token = localStorage.getItem('sp_token');
+  if (token) {
+    http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+} catch (e) {}

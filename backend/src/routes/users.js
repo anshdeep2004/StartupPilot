@@ -25,9 +25,9 @@ router.get('/:id', async (req, res, next) => {
 // POST /api/v1/users
 router.post('/', async (req, res, next) => {
   try {
-    const { name, email, role, username, password } = req.body;
+    const { name, email, role, username, password, designation } = req.body;
     if (!name) return res.status(400).json({ error: { message: 'Name is required' } });
-    const data = { name, email, role, username };
+    const data = { name, email, role, username, designation };
     if (password) {
       const bcrypt = require('bcryptjs');
       data.password = bcrypt.hashSync(password, 10);
@@ -41,8 +41,8 @@ router.post('/', async (req, res, next) => {
 // PUT /api/v1/users/:id
 router.put('/:id', async (req, res, next) => {
   try {
-    const { name, email, role, username, password } = req.body;
-    const data = { name, email, role, username };
+    const { name, email, role, username, password, designation } = req.body;
+    const data = { name, email, role, username, designation };
     if (password) {
       const bcrypt = require('bcryptjs');
       data.password = bcrypt.hashSync(password, 10);

@@ -36,6 +36,11 @@ const Dashboard = () => {
   const [newStartupDesc, setNewStartupDesc] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [userRole, setUserRole] = React.useState(null);
+
+  React.useEffect(() => {
+    try { setUserRole(sessionStorage.getItem('sp_user_role')); } catch {}
+  }, []);
 
   React.useEffect(() => {
     let mounted = true
@@ -100,13 +105,15 @@ const Dashboard = () => {
         {loading && <div className="text-sm text-gray-500 mt-2">Loading startups...</div>}
         {error && <div className="text-sm text-red-600 mt-2">{error}</div>}
 
-        {/* Add Startup Button */}
-        <div
-          onClick={() => setIsDialogOpen(true)}
-          className="cursor-pointer text-sm text-[#020202aa] font-semibold hover:text-black w-fit mt-3"
-        >
-          Add Startup +
-        </div>
+        {/* Add Startup Button - only for ADMIN */}
+        {userRole === 'ADMIN' && (
+          <div
+            onClick={() => setIsDialogOpen(true)}
+            className="cursor-pointer text-sm text-[#020202aa] font-semibold hover:text-black w-fit mt-3"
+          >
+            Add Startup +
+          </div>
+        )}
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-3">
           {/* Left: Statistics Card */}

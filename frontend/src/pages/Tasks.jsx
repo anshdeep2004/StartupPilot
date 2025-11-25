@@ -597,31 +597,31 @@ const Tasks = () => {
             <input
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              className="w-full border p-2 mb-3 rounded"
+              className="w-full border p-2 mb-3 rounded bg-gradient-to-r from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
               placeholder="Task title"
             />
             <textarea
               value={newDesc}
               onChange={(e) => setNewDesc(e.target.value)}
-              className="w-full border p-2 mb-3 rounded h-24"
+              className="w-full border p-2 mb-3 rounded bg-gradient-to-r from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
               placeholder="Description"
             />
-            <div className="flex gap-2 mb-3">
+            <div className="flex gap-2 mb-3 ">
               <select
                 value={newStatus}
                 onChange={(e) => setNewStatus(e.target.value)}
-                className="flex-1 border p-2 rounded"
+                className="flex-1  w-full border p-2 mb-3 rounded bg-gradient-to-r from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
               >
-                <option value="todo">Todo</option>
-                <option value="in_progress">In Progress</option>
-                <option value="done">Done</option>
+                <option value="todo" className="bg-slate-100 border-gray-600 text-gray-800 hover:marker:">Todo</option>
+                <option value="in_progress" className="bg-slate-100 border-gray-600 text-gray-800">In Progress</option>
+                <option value="done" className="bg-slate-100 border-gray-600 text-gray-800">Done</option>
               </select>
               <select
                 value={newAssigneeId}
                 onChange={(e) => setNewAssigneeId(e.target.value)}
-                className="flex-1 border p-2 rounded"
+                className="flex-1 w-full border p-2 mb-3 rounded bg-gradient-to-r from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
               >
-                <option value="">Unassigned</option>
+                <option value="" className="bg-slate-100 border-gray-600 text-gray-800 hover:bg-[#f5f0f9]">Unassigned</option>
                 {users.map((u) => (
                   <option key={u.id} value={u.id}>
                     {u.name}

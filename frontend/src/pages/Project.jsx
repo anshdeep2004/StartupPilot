@@ -17,6 +17,11 @@ const Project = () => {
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [userRole, setUserRole] = React.useState(null);
+
+  React.useEffect(() => {
+    try { setUserRole(sessionStorage.getItem('sp_user_role')); } catch {}
+  }, []);
 
   // ✅ Load projects from backend
   React.useEffect(() => {
@@ -124,13 +129,15 @@ const Project = () => {
         )}
         {error && <div className="text-sm text-red-600 mt-2">{error}</div>}
 
-        {/* ✅ Add Project Button */}
-        <button
-          onClick={() => setIsDialogOpen(true)}
-          className="bg-[#faf5ff] cursor-pointer text-sm text-[#020202aa] font-semibold hover:text-black w-fit mt-3"
-        >
-          + Add Project
-        </button>
+        {/* ✅ Add Project Button - only for ADMIN */}
+        {userRole === 'ADMIN' && (
+          <button
+            onClick={() => setIsDialogOpen(true)}
+            className="bg-[#faf5ff] cursor-pointer text-sm text-[#020202aa] font-semibold hover:text-black w-fit mt-3"
+          >
+            + Add Project
+          </button>
+        )}
       </div>
 
       {/* ✅ Project Progress Tracker Section */}

@@ -18,7 +18,8 @@
     "morgan": "^1.10.0",
     "bcryptjs": "^2.4.3",
     "prisma": "^5.0.0",
-    "@prisma/client": "^5.0.0"
+    "@prisma/client": "^5.0.0",
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

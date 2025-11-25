@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const prisma = require('../db/prismaClient');
+const { authenticate, requireRole } = require('../middleware/auth');
 
 // GET /api/v1/projects
 router.get('/', async (req, res, next) => {
@@ -22,7 +23,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // POST /api/v1/projects
-router.post('/', async (req, res, next) => {
+router.post('/', authenticate, requireRole('ADMIN'), async (req, res, next) => {
   try {
     const { name, startDate, shortDesc, longDesc, memberIds, startupId } = req.body;
     if (!name) return res.status(400).json({ error: { message: 'Name is required' } });
@@ -37,7 +38,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // PUT /api/v1/projects/:id
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', authenticate, requireRole('ADMIN'), async (req, res, next) => {
   try {
     const { name, startDate, shortDesc, longDesc } = req.body;
     const updated = await prisma.project.update({ where: { id: req.params.id }, data: { name, startDate: startDate ? new Date(startDate) : null, shortDesc, longDesc } });
@@ -46,7 +47,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // POST /api/v1/projects/:id/members
-router.post('/:id/members', async (req, res, next) => {
+router.post('/:id/members', authenticate, requireRole('ADMIN'), async (req, res, next) => {
   try {
     const { userId, role } = req.body;
     const pm = await prisma.projectMember.create({ data: { projectId: req.params.id, userId, role } });
@@ -55,7 +56,7 @@ router.post('/:id/members', async (req, res, next) => {
 });
 
 // DELETE /api/v1/projects/:id/members/:userId
-router.delete('/:id/members/:userId', async (req, res, next) => {
+router.delete('/:id/members/:userId', authenticate, requireRole('ADMIN'), async (req, res, next) => {
   try {
     await prisma.projectMember.deleteMany({ where: { projectId: req.params.id, userId: req.params.userId } });
     res.status(204).send();
@@ -63,7 +64,7 @@ router.delete('/:id/members/:userId', async (req, res, next) => {
 });
 
 // DELETE project
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authenticate, requireRole('ADMIN'), async (req, res, next) => {
   try {
     await prisma.project.delete({ where: { id: req.params.id } });
     res.status(204).send();

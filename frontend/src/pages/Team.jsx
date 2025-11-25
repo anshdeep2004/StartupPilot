@@ -6,10 +6,16 @@ import http from "../api/http";
 
 const Team = () => {
   const [teamMembers, setTeamMembers] = useState([]);
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    try { setUserRole(sessionStorage.getItem('sp_user_role')); } catch {}
+  }, []);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newName, setNewName] = useState("");
   const [newRole, setNewRole] = useState("");
+  const [newDesignation, setNewDesignation] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   useEffect(() => {
@@ -30,15 +36,15 @@ const Team = () => {
     if (newName.trim() && newRole.trim()) {
       (async () => {
         try {
-          const payload = { name: newName, role: newRole, username: newUsername || undefined, password: newPassword || undefined };
+          const payload = { name: newName, role: newRole, username: newUsername || undefined, password: newPassword || undefined, designation: newDesignation || undefined };
           const res = await http.post('/users', payload);
           setTeamMembers(prev => [...prev, res.data]);
         } catch (e) {
           console.error('Failed to create user', e);
           // optimistic fallback
-          setTeamMembers(prev => [...prev, { name: newName, role: newRole }]);
+          setTeamMembers(prev => [...prev, { name: newName, role: newRole, designation: newDesignation }]);
         } finally {
-          setNewName(''); setNewRole(''); setNewUsername(''); setNewPassword(''); setIsDialogOpen(false);
+          setNewName(''); setNewRole(''); setNewDesignation(''); setNewUsername(''); setNewPassword(''); setIsDialogOpen(false);
         }
       })();
     }
@@ -62,13 +68,15 @@ const Team = () => {
           ))}
         </div>
 
-        {/* Add Member Button */}
-        <button
-          onClick={() => setIsDialogOpen(true)}
-          className="text-sm text-[#00000080] px-2 font-semibold w-fit bg-[#FFF8FE] border-0 cursor-pointer hover:text-black"
-        >
-          Add Member +
-        </button>
+        {/* Add Member Button - only for ADMIN */}
+        {userRole === 'ADMIN' && (
+          <button
+            onClick={() => setIsDialogOpen(true)}
+            className="text-sm text-[#00000080] px-2 font-semibold w-fit bg-[#FFF8FE] border-0 cursor-pointer hover:text-black"
+          >
+            Add Member +
+          </button>
+        )}
       </div>
 
       {/* Dialog Box */}
@@ -85,11 +93,21 @@ const Team = () => {
               className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
             />
 
-            <input
-              type="text"
-              placeholder="Role"
+            <select
               value={newRole}
               onChange={(e) => setNewRole(e.target.value)}
+              className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
+            >
+              <option value="">Select role</option>
+              <option value="USER">User</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+
+            <input
+              type="text"
+              placeholder="Designation (e.g. Product Manager)"
+              value={newDesignation}
+              onChange={(e) => setNewDesignation(e.target.value)}
               className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
             />
 

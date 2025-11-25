@@ -46,4 +46,12 @@ router.delete('/:id', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+// GET /api/v1/startups/:id/projects
+router.get('/:id/projects', async (req, res, next) => {
+  try {
+    const projects = await prisma.project.findMany({ where: { startupId: req.params.id }, include: { members: { include: { user: true } }, tasks: true } });
+    res.json(projects);
+  } catch (err) { next(err); }
+});
+
 module.exports = router;

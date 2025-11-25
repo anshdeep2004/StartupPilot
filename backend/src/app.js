@@ -6,6 +6,7 @@ const startupsRouter = require('./routes/startups');
 const projectsRouter = require('./routes/projects');
 const tasksRouter = require('./routes/tasks');
 const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/api/v1/startups', startupsRouter);
 app.use('/api/v1/projects', projectsRouter);
 app.use('/api/v1/tasks', tasksRouter);
 app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/auth', authRouter);
 
 // basic error handler
 app.use((err, req, res, next) => {

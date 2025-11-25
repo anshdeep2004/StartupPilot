@@ -1,27 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileIcon from "../components/ProfileIcon";
 import Profile from "./Profile";
 import { NavLink } from "react-router-dom";
+import http from "../api/http";
 
 const Team = () => {
-  const [teamMembers, setTeamMembers] = useState([
-    { name: "Vedika Jaipurkar", role: "Designer" },
-    { name: "Anshdeep Singh Bhandari", role: "Software Developer" },
-    { name: "Vardaan Singh Bhandari", role: "Frontend Dev" },
-    { name: "Amandeep Kaur Bhandari", role: "Project Manager" },
-    { name: "Sheetal Jaipurkar", role: "QA Engineer" },
-  ]);
+  const [teamMembers, setTeamMembers] = useState([]);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newName, setNewName] = useState("");
   const [newRole, setNewRole] = useState("");
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await http.get('/users');
+        if (!mounted) return;
+        setTeamMembers(res.data || []);
+      } catch {
+        // fallback: keep empty
+      }
+    })();
+    return () => { mounted = false };
+  }, []);
 
   const handleAddMember = () => {
     if (newName.trim() && newRole.trim()) {
-      setTeamMembers([...teamMembers, { name: newName, role: newRole }]);
-      setNewName("");
-      setNewRole("");
-      setIsDialogOpen(false);
+      (async () => {
+        try {
+          const payload = { name: newName, role: newRole, username: newUsername || undefined, password: newPassword || undefined };
+          const res = await http.post('/users', payload);
+          setTeamMembers(prev => [...prev, res.data]);
+        } catch (e) {
+          console.error('Failed to create user', e);
+          // optimistic fallback
+          setTeamMembers(prev => [...prev, { name: newName, role: newRole }]);
+        } finally {
+          setNewName(''); setNewRole(''); setNewUsername(''); setNewPassword(''); setIsDialogOpen(false);
+        }
+      })();
     }
   };
 
@@ -71,6 +90,22 @@ const Team = () => {
               placeholder="Role"
               value={newRole}
               onChange={(e) => setNewRole(e.target.value)}
+              className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
+            />
+
+            <input
+              type="text"
+              placeholder="Username"
+              value={newUsername}
+              onChange={(e) => setNewUsername(e.target.value)}
+              className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
               className="w-full border p-2 mb-3 rounded bg-gradient-to-r  from-[#C7D2FE] to-[#E9D5FF] border-gray-600 text-gray-800"
             />
 

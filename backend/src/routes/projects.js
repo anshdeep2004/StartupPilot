@@ -5,7 +5,9 @@ const prisma = require('../db/prismaClient');
 // GET /api/v1/projects
 router.get('/', async (req, res, next) => {
   try {
-    const projects = await prisma.project.findMany({ include: { members: { include: { user: true } }, tasks: true } });
+    const { startupId } = req.query;
+    const where = startupId ? { startupId } : {};
+    const projects = await prisma.project.findMany({ where, include: { members: { include: { user: true } }, tasks: true } });
     res.json(projects);
   } catch (err) { next(err); }
 });
@@ -22,9 +24,9 @@ router.get('/:id', async (req, res, next) => {
 // POST /api/v1/projects
 router.post('/', async (req, res, next) => {
   try {
-    const { name, startDate, shortDesc, longDesc, memberIds } = req.body;
+    const { name, startDate, shortDesc, longDesc, memberIds, startupId } = req.body;
     if (!name) return res.status(400).json({ error: { message: 'Name is required' } });
-    const project = await prisma.project.create({ data: { name, startDate: startDate ? new Date(startDate) : null, shortDesc, longDesc } });
+    const project = await prisma.project.create({ data: { name, startDate: startDate ? new Date(startDate) : null, shortDesc, longDesc, startupId } });
     if (Array.isArray(memberIds) && memberIds.length) {
       const pmCreates = memberIds.map((userId) => ({ projectId: project.id, userId }));
       await prisma.projectMember.createMany({ data: pmCreates });

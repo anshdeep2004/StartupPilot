@@ -26,6 +26,7 @@ const Login = ({ onClose }) => {
       }
       sessionStorage.setItem('sp_user', JSON.stringify(user));
       sessionStorage.setItem('sp_user_role', user.role);
+      sessionStorage.setItem('sp_logged_in', '1');
       window.dispatchEvent(new Event('sp-login'));
       onClose?.();
       navigate('/dashboard');
@@ -49,6 +50,7 @@ const Login = ({ onClose }) => {
       }
       sessionStorage.setItem('sp_user', JSON.stringify(user));
       sessionStorage.setItem('sp_user_role', user.role);
+      sessionStorage.setItem('sp_logged_in', '1');
       window.dispatchEvent(new Event('sp-login'));
       onClose?.();
       navigate('/dashboard');

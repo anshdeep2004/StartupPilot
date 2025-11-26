@@ -137,6 +137,7 @@ import Login from "./pages/Login";
 import { Routes, Route, Navigate, NavLink } from "react-router-dom";
 import logo_white_back from "/images/logo_white_back.png";
 import Investors from "./pages/Investors";
+import AIAssistance from "./pages/AIAssistance";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(() => {
@@ -198,9 +199,12 @@ function App() {
                       >
                         Investors
                       </NavLink>
-                      <button className="ml-2 py-2 rounded-xl font-semibold bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] to-[#4F9CFF] hover:text-white hover:bg-gradient-to-r hover:from-[#A855F7] hover:to-[#4F9CFF] transition">
+                      <NavLink
+                        to="/ai"
+                        className="ml-2 py-2 rounded-xl font-semibold bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] to-[#4F9CFF] hover:text-white hover:bg-gradient-to-r hover:from-[#A855F7] hover:to-[#4F9CFF] transition"
+                      >
                         AI Assistance
-                      </button>
+                      </NavLink>
                     </div>
                   </div>
 
@@ -226,6 +230,7 @@ function App() {
                       <Route path="/profile" element={<Profile />} />
                       <Route path="/tasks" element={<Tasks />} />
                       <Route path="/investors" element={<Investors />} />
+                      <Route path="/ai" element={<AIAssistance />} />
                     </Routes>
                   </div>
 
